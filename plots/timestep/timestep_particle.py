@@ -10,7 +10,8 @@ tpattern = re.compile(r'_t(\d+.\d+)')
 
 simtypes = ['particle']
 for simtype in simtypes:
-	filenames = [filename for filename in results if simtype in filename and 'n256' in filename and 'z50' in filename and 'h2' in filename]
+	params = [simtype,'b100','n256','h2','z50']
+	filenames = [filename for filename in results if all(param in filename for param in params)]
 	base = [filename for filename in filenames if 't0.0015' in filename][0]
 	
 	kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)

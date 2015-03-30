@@ -10,7 +10,8 @@ npattern = re.compile(r'_n(\d+)')
 
 simtypes = ['fluid']
 for simtype in simtypes:
-	filenames = [filename for filename in results if simtype in filename and 'z50' in filename and 'h2' in filename and 't0.005' in filename]
+	params = [simtype,'b100','t0.005','h2','z50']
+	filenames = [filename for filename in results if all(param in filename for param in params)]
 	base = [filename for filename in filenames if 'n512' in filename][0]
 
 	kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)

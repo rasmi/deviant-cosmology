@@ -11,8 +11,9 @@ hpattern = re.compile(r'_h(\d+)')
 
 simtypes = ['fluid']
 for simtype in simtypes:
-	filenames = [filename for filename in results if 'fluid' in filename and 'n256' in filename and 'z50' in filename and 'h2' in filename]
-	base = [filename for filename in results if 't0.0015' in filename and 'particle' in filename][0]
+	params = [simtype,'b100','n256','z50','h2']
+	filenames = [filename for filename in results if all(param in filename for param in params)]
+	base = [filename for filename in filenames if 't0.0015' in filename][0]
 	
 	kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 

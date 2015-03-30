@@ -10,7 +10,8 @@ zpattern = re.compile(r'_z(\d+)')
 
 simtypes = ['particle']
 for simtype in simtypes:
-	filenames = [filename for filename in results if simtype in filename and 'n256' in filename and 'h2' in filename and 't0.005' in filename]
+	params = [simtype,'b100','n256','t0.005','h2']
+	filenames = [filename for filename in results if all(param in filename for param in params)]
 	base = [filename for filename in filenames if 'z100' in filename][0]
 
 	kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)

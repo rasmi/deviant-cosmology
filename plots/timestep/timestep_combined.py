@@ -8,10 +8,12 @@ results = os.listdir(result_dir)
 
 tpattern = re.compile(r'_t(\d+.\d+)')
 
-simtypes = ['particle', 'fluid']
+simtypes = ['particle','fluid']
 for simtype in simtypes:
-	filenames = [filename for filename in results if simtype in filename and 'n256' in filename and 'z50' in filename and 'h2' in filename]
-	base = [filename for filename in results if 't0.0015' in filename and 'particle' in filename][0]
+	params = [simtype,'b100','n256','h2','z50']
+	filenames = [filename for filename in results if all(param in filename for param in params)]
+	base_params = ['particle','b100','n256','h2','z50','t0.0015']
+	base = [filename for filename in results if all(param in filename for param in base_params)][0]
 	
 	kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
