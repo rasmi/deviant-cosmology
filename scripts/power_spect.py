@@ -50,7 +50,7 @@ k1d *= k1d
 k_3d = np.sqrt(k1d[:, None, None] + k1d[:, None] + k1d)
 
 # Generate histogram
-krange = np.logspace(-0.1, 0.1, num = 50, endpoint=True)
+krange = np.logspace(-1, 1, num = 50, endpoint=True)
 ps, bin_edges = np.histogram(k_3d, bins=krange, weights=field_fft)
 counts, bin_edges = np.histogram(k_3d, bins=krange, weights=None)
 
