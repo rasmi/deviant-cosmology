@@ -49,12 +49,8 @@ k1d = np.minimum(np.arange(dim), np.arange(dim, 0, -1)) * 2.0*np.pi/box_size_in_
 k1d *= k1d
 k_3d = np.sqrt(k1d[:, None, None] + k1d[:, None] + k1d)
 
-# compute kmin and kmax
-kmin = np.log10(2.0*np.pi*0.99/box_size_in_Mpc)
-kmax = np.log10(2.0*np.pi*0.5*dim/box_size_in_Mpc)
-
 # Generate histogram
-krange = np.logspace(kmin, kmax, num = 50, endpoint=True)
+krange = np.logspace(-0.1, 0.1, num = 50, endpoint=True)
 ps, bin_edges = np.histogram(k_3d, bins=krange, weights=field_fft)
 counts, bin_edges = np.histogram(k_3d, bins=krange, weights=None)
 
