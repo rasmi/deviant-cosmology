@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # power_spect.py
 # Generate the power spectrum of a given enzo directory.
 # Specify --type fluid or particle.
@@ -63,4 +64,5 @@ ps /= 4.0*np.pi * kvalues**2 * kwidth
 if not args.output:
 	args.output = 'power_spect_'+args.type+'_n'+str(n)+'.out'
 
-np.savetxt(args.output, zip(kvalues, ps))
+output_dir = '/work/03330/tg826294/results/'
+np.savetxt(output_dir+args.output, zip(kvalues, ps))
