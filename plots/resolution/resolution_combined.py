@@ -12,7 +12,7 @@ simtypes = ['particle','fluid']
 for simtype in simtypes:
 	params = [simtype,'b100','t0.005','h2','z50']
 	filenames = [filename for filename in results if all(param in filename for param in params)]
-	base_params = ['particle','b100','t0.005','h2','z50','n512']
+	base_params = ['particle','b100','t0.005','h2','z50','n1024']
 	base = [filename for filename in results if all(param in filename for param in base_params)][0]
 	
 	kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
