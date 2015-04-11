@@ -86,3 +86,15 @@ cd $WORK/simulations/particle/box_200/n_128/t_005/ic_200_128_005_enzo/
 power_spect.py RD0000 --type particle --output particle_b200_n128_t0.005_h2_z50.out
 cd $WORK/simulations/particle/box_200/n_256/t_005/ic_200_256_005_enzo/
 power_spect.py RD0000 --type particle --output particle_b200_n256_t0.005_h2_z50.out
+
+# CourantSafety fluid
+cd $SCRATCH/safetyConstant/fluid/box_100/n_128/t_005/hydro_2/safety_01/ic_100_128_005_2_01_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n128_t0.005_cs0.1.out
+cd $SCRATCH/safetyConstant/fluid/box_100/n_256/t_005/hydro_2/safety_01/ic_100_256_005_2_01_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n256_t0.005_cs0.1.out
+
+# CourantSafety particle
+cd $SCRATCH/safetyConstant/particle/box_100/n_128/t_005/safety_01/ic_100_128_005_2_01_enzo/
+power_spect.py RD0000 --type particle --output particle_b100_n128_t0.005_cs0.1.out
+cd $SCRATCH/safetyConstant/particle/box_100/n_256/t_005/safety_01/ic_100_256_005_2_01_enzo/
+power_spect.py RD0000 --type particle --output particle_b100_n256_t0.005_cs0.1.out
