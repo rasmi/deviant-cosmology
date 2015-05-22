@@ -98,3 +98,22 @@ cd $SCRATCH/safetyConstant/particle/box_100/n_128/t_005/safety_01/ic_100_128_005
 power_spect.py RD0000 --type particle --output particle_b100_n128_t0.005_cs0.1.out
 cd $SCRATCH/safetyConstant/particle/box_100/n_256/t_005/safety_01/ic_100_256_005_2_01_enzo/
 power_spect.py RD0000 --type particle --output particle_b100_n256_t0.005_cs0.1.out
+
+# Isothermal
+cd $SCRATCH/isothermal_tests/box_100/n_256/t_005/hydro_2/cs_3/ic_100_256_005_2_3_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n256_t0.005_h2_isothermal3.out
+cd $SCRATCH/isothermal_tests/box_100/n_256/t_005/hydro_2/cs_10/ic_100_256_005_2_10_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n256_t0.005_h2_isothermal10.out
+cd $SCRATCH/isothermal_tests/box_100/n_256/t_005/hydro_2/cs_30/ic_100_256_005_2_30_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n256_t0.005_h2_isothermal30.out
+cd $SCRATCH/isothermal_tests/box_100/n_256/t_005/hydro_2/cs_100/ic_100_256_005_2_100_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n256_t0.005_h2_isothermal100.out
+
+cd $SCRATCH/isothermal_tests/box_100/n_512/t_005/hydro_2/cs_3/ic_100_512_005_2_3_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n512_t0.005_h2_isothermal3.out
+cd $SCRATCH/isothermal_tests/box_100/n_512/t_005/hydro_2/cs_10/ic_100_512_005_2_10_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n512_t0.005_h2_isothermal10.out
+cd $SCRATCH/isothermal_tests/box_100/n_512/t_005/hydro_2/cs_30/ic_100_512_005_2_30_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n512_t0.005_h2_isothermal30.out
+cd $SCRATCH/isothermal_tests/box_100/n_512/t_005/hydro_2/cs_100/ic_100_512_005_2_100_isothermal_enzo/
+power_spect.py RD0000 --type fluid --output fluid_b100_n512_t0.005_h2_isothermal100.out
