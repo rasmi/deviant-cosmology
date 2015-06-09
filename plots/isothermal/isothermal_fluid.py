@@ -11,7 +11,7 @@ npattern = re.compile(r'_n(\d+)')
 
 simtypes = ['fluid']
 for simtype in simtypes:
-    params = [simtype,'b100','n256','t0.005','h2','isothermal']
+    params = [simtype,'b100','n512','t0.005','h2','isothermal']
     filenames = [filename for filename in results if all(param in filename for param in params)]
     base = 'particle_b100_n512_t0.005_h2_z50.out'
     
@@ -20,7 +20,6 @@ for simtype in simtypes:
     for filename in filenames:
         isothermal = isothermalpattern.findall(filename)[0]
         n = npattern.findall(filename)[0]
-        print filename
         kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
         ps = (ps - ps_base)/ps_base
 
