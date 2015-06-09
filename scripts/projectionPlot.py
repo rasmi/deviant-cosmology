@@ -2,7 +2,7 @@
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("directory", type=str, help="List one or more directories to analyze.")
+parser.add_argument("directory", type=str, help="List a directory to analyze.")
 parser.add_argument("--type", type=str, required=True, help="fluid or particle")
 parser.add_argument("--output", type=str, help="output file name")
 args = parser.parse_args()
