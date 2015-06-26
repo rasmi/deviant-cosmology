@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import re
 import numpy as np
@@ -22,15 +23,20 @@ for simtype in simtypes:
         n = npattern.findall(filename)[0]
         kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
         ps = (ps - ps_base)/ps_base
-
         style = '--' if 'particle' in filename else '-'
         plt.semilogx(kvalues, ps, style, label=simtype+' n='+n+' cs='+isothermal)
+
+# Sort legend numerically by sound speed.
+handles, labels = plt.gca().get_legend_handles_labels()
+import operator
+hl = sorted(zip(handles, labels), key=lambda item:  int(item[1].split(' ')[2].split('=')[1]))
+handles2, labels2 = zip(*hl)
 
 plt.xlim([1e-1,1e1])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Relative Power Spectrum, Isothermal Fluid Comparison at Z=0')
-plt.legend(numpoints=1, loc='best')
+plt.legend(handles2, labels2, numpoints=1, loc='best')
 plt.savefig('isothermal_fluid.png')
 
 plt.show()
