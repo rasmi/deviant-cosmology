@@ -21,7 +21,6 @@ for simtype in simtypes:
         isothermal = isothermalpattern.findall(filename)[0]
         n = npattern.findall(filename)[0]
         kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
-        ps = (ps - ps_base)/ps_base
         style = '--' if 'particle' in filename else '-'
         plt.semilogx(kvalues, ps, style, label=simtype+' n='+n+' cs='+isothermal)
 
@@ -32,9 +31,9 @@ handles2, labels2 = zip(*hl)
 
 plt.xlim([1e-1,1e1])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
-plt.ylabel('$\delta P(k)$', fontsize=14)
-plt.title('Relative Power Spectrum, Isothermal Fluid Comparison at Z=0')
+plt.ylabel('$P(k)$', fontsize=14)
+plt.title('Power Spectrum, Isothermal Fluid Comparison at Z=0')
 plt.legend(handles2, labels2, numpoints=1, loc='best')
-plt.savefig('isothermal_fluid.png')
+plt.savefig('isothermal_fluid_all.png')
 
 plt.show()

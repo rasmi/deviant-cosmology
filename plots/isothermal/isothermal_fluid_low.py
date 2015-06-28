@@ -1,4 +1,3 @@
-from __future__ import print_function
 import os
 import re
 import numpy as np
@@ -14,7 +13,7 @@ simtypes = ['fluid']
 for simtype in simtypes:
     params = [simtype,'b100','n512','t0.005','h2','isothermal']
     filenames = [filename for filename in results if all(param in filename for param in params)]
-    base = 'particle_b100_n512_t0.005_h2_z50.out'
+    base = 'fluid_b100_n512_t0.005_h2_z50.out'
     
     kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
