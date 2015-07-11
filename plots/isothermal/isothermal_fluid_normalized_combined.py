@@ -34,7 +34,7 @@ hl = sorted(zip(handles, labels), key=lambda item:  int(item[1].split(' ')[1].sp
 handles2, labels2 = zip(*hl)
 
 plt.xlim([1e-1,1e0])
-plt.ylim([-0.1,0.1])
+plt.ylim([-1.1,0.15])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Combined Relative Power Spectrum, Isothermal Fluid Comparison at Z=0')
