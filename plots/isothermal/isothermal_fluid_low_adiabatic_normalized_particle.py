@@ -19,12 +19,13 @@ for simtype in simtypes:
     kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
     for filename in filenames:
-        if 'isothermal3.' in filename or 'isothermal10.' in filename:
+        if 'isothermal' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            n = npattern.findall(filename)[0]
-            kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
-            ps = (ps - ps_base)/ps_base
-            plt.semilogx(kvalues, ps, '-', label='Isothermal fluid cs='+isothermal)
+            if int(isothermal) < 300:
+                n = npattern.findall(filename)[0]
+                kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
+                ps = (ps - ps_base)/ps_base
+                plt.semilogx(kvalues, ps, '-', label='Isothermal fluid cs='+isothermal)
         elif filename is 'fluid_b100_n512_t0.005_h2_z50.out': 
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base

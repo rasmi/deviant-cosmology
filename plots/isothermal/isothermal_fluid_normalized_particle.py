@@ -23,11 +23,11 @@ for simtype in simtypes:
         kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
         ps = (ps - ps_base)/ps_base
         style = '--' if 'particle' in filename else '-'
-        plt.semilogx(kvalues, ps, style, label=simtype+' n='+n+' cs='+isothermal)
+        plt.semilogx(kvalues, ps, style, label=simtype+' cs='+isothermal)
 
 # Sort legend numerically by sound speed.
 handles, labels = plt.gca().get_legend_handles_labels()
-hl = sorted(zip(handles, labels), key=lambda item:  int(item[1].split(' ')[2].split('=')[1]))
+hl = sorted(zip(handles, labels), key=lambda item:  int(item[1].split(' ')[1].split('=')[1]))
 handles2, labels2 = zip(*hl)
 
 plt.xlim([1e-1,1e0])

@@ -16,7 +16,7 @@ for simtype in simtypes:
 
     for filename in filenames:
         n = npattern.findall(filename)[0]
-        label = simtype+' n='+n
+        label = simtype
         if 'isothermal' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
             label += ' cs='+isothermal
@@ -26,8 +26,8 @@ for simtype in simtypes:
 
 # Sort legend numerically by sound speed.
 def sortlabels(item):
-    if len(item[1].split(' ')) > 2:
-        return int(item[1].split(' ')[2].split('=')[1])
+    if len(item[1].split(' ')) > 1:
+        return int(item[1].split(' ')[1].split('=')[1])
     else:
         return item[1].split(' ')[0]
 

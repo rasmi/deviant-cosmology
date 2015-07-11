@@ -19,14 +19,15 @@ for simtype in simtypes:
 
         for filename in filenames:
             isothermal = isothermalpattern.findall(filename)[0]
-            n = npattern.findall(filename)[0]
-            kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
-            ps = (ps - ps_base)/ps_base
-            particle_normalized = 'particle' in base
-            style = '--' if  particle_normalized else '-'
-            label = simtype+' cs='+isothermal
-            label += ' P' if particle_normalized else ' AF'
-            plt.semilogx(kvalues, ps, style, label=label)
+            if int(isothermal) < 300:
+                n = npattern.findall(filename)[0]
+                kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
+                ps = (ps - ps_base)/ps_base
+                particle_normalized = 'particle' in base
+                style = '--' if  particle_normalized else '-'
+                label = simtype+' cs='+isothermal
+                label += ' P' if particle_normalized else ' AF'
+                plt.semilogx(kvalues, ps, style, label=label)
 
 # Sort legend numerically by sound speed.
 handles, labels = plt.gca().get_legend_handles_labels()
@@ -34,7 +35,7 @@ hl = sorted(zip(handles, labels), key=lambda item:  int(item[1].split(' ')[1].sp
 handles2, labels2 = zip(*hl)
 
 plt.xlim([1e-1,1e0])
-plt.ylim([-1.1,0.15])
+plt.ylim([-0.1,0.1])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Combined Relative Power Spectrum, Isothermal Fluid Comparison at Z=0')
