@@ -10,7 +10,7 @@ isothermalpattern = re.compile(r'_iso(\d+)')
 
 simtypes = ['fluid']
 for simtype in simtypes:
-    params = [simtype,'b100','n512','t0.005','h2','iso','z8']
+    params = [simtype,'b100','n512','t0.005','h2','iso','z10_']
     filenames = [filename for filename in results if all(param in filename for param in params)]
     for filename in filenames:
         label = simtype
@@ -28,8 +28,8 @@ handles2, labels2 = zip(*hl)
 plt.xlim([1e-1,1e1])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$P(k)$', fontsize=14)
-plt.title('Power Spectrum, Isothermal Fluid at Z=8.1')
+plt.title('Power Spectrum, Isothermal Fluid at Z=10')
 plt.legend(handles2, labels2, numpoints=1, loc='best')
-plt.savefig('isothermal_fluid_all_z8.png')
+plt.savefig('isothermal_fluid_all_z10.png')
 
 plt.show()
