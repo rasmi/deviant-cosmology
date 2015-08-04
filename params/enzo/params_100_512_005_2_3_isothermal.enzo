@@ -1,0 +1,101 @@
+#;-*-C-*-
+
+# AMR PROBLEM DEFINITION FILE: Cosmology Simulation
+#
+# define problem
+#
+ProblemType                              = 30      // cosmology simulation
+TopGridRank                              = 3
+TopGridDimensions                        = 512 512 512
+SelfGravity                              = 1       // gravity on
+TopGridGravityBoundary                   = 0       // Periodic BC for gravity
+LeftFaceBoundaryCondition                = 3 3 3   // same for fluid
+RightFaceBoundaryCondition               = 3 3 3
+RefineBy                                 = 2
+
+#
+# problem parameters
+#
+CosmologySimulationOmegaBaryonNow        = 0.0463
+CosmologySimulationOmegaCDMNow           = 0.233
+CosmologySimulationDensityName           = GridDensity
+CosmologySimulationVelocity1Name         = GridVelocities_x
+CosmologySimulationVelocity2Name         = GridVelocities_y
+CosmologySimulationVelocity3Name         = GridVelocities_z
+CosmologySimulationCalculatePositions    = 0
+
+#
+# cosmology parameters
+#
+ComovingCoordinates                      = 1       // Expansion ON
+CosmologyOmegaMatterNow                  = 0.279
+CosmologyOmegaLambdaNow                  = 0.721
+CosmologyHubbleConstantNow               = 0.7     // in 100 km/s/Mpc
+CosmologyComovingBoxSize                 = 100    // in Mpc/h
+CosmologyMaxExpansionRate                = 0.005   // maximum allowed delta(a)/a
+CosmologyInitialRedshift                 = 50      //
+CosmologyFinalRedshift                   = 0       //
+GravitationalConstant                    = 1       // this must be true for cosmology
+
+#
+# I/O and stop/start parameters
+#
+dtDataDump       = 5
+RedshiftDumpName = RD
+RedshiftDumpDir  = RD
+DataDumpName     = DD
+DataDumpDir      = DD
+
+CosmologyOutputRedshift[0] = 0
+CosmologyOutputRedshift[1] = 0.500
+CosmologyOutputRedshift[2] = 1.000
+CosmologyOutputRedshift[3] = 2.000
+CosmologyOutputRedshift[4] = 5.000
+CosmologyOutputRedshift[5] = 10.000
+CosmologyOutputRedshift[6] = 50.000
+
+#
+# hydro parameters
+#
+EquationOfState             = 1
+IsothermalSoundSpeed        = 0.00006492290979457054 // 3 km/s
+HydroMethod                 = 2
+Gamma                       = 1.6667
+PPMDiffusionParameter       = 0       // diffusion off
+DualEnergyFormalism         = 1       // use total & internal energy
+InterpolationMethod         = 1       // SecondOrderA
+FluxCorrection              = 1
+ConservativeInterpolation   = 1
+CourantSafetyNumber         = 0.5
+ParticleCourantSafetyNumber = 0.8
+UseMinimumPressureSupport   = 0
+
+#
+# grid refinement parameters
+#
+StaticHierarchy                       = 0
+# Setting MaximumRefinementLevel to 0 to disable refinement.
+MaximumRefinementLevel                = 0
+MaximumGravityRefinementLevel         = 5
+MaximumParticleRefinementLevel        = 5
+RefineBy                              = 2
+CellFlaggingMethod                    = 2 4
+MinimumOverDensityForRefinement       = 8.0 8.0
+MinimumMassForRefinementLevelExponent = 0.0 0.0
+MinimumEfficiency                     = 0.35
+
+#
+# microphysics parameters
+#
+MultiSpecies       = 0
+RadiativeCooling   = 0
+RadiationFieldType = 0
+
+#
+# some global parameters
+#
+GreensFunctionMaxNumber = 40
+ParallelRootGridIO      = 1
+ParallelParticleIO      = 1
+PartitionNestedGrids                     = 1
+CosmologySimulationNumberOfInitialGrids  = 1
