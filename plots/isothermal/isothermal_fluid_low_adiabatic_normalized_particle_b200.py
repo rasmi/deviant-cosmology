@@ -31,8 +31,8 @@ for simtype in simtypes:
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label='Adiabatic fluid')
 
-plt.xlim([1e-1,5e0])
-plt.ylim([-0.4,0.5])
+plt.xlim([0.025,5e0])
+plt.ylim([-0.2,20])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Relative Power Spectrum, Isothermal and Adiabatic Fluid Comparison 200Mpc/h')
