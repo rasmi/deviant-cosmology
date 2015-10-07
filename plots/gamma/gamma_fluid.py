@@ -18,7 +18,8 @@ for filename in filenames:
 	label = 'gamma = 4/3' if 'gamma43' in filename else 'gamma = 5/3'
 	plt.semilogx(kvalues, ps, style, label=label)
 
-plt.xlim([1e-1,1e1])
+plt.xlim([1e-1,5])
+plt.ylim([-0.1,0.5])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Relative Power Spectrum, Fluid Gamma Comparison')
