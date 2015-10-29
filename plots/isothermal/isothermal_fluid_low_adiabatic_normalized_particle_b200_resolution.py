@@ -13,8 +13,8 @@ simtypes = ['fluid']
 for simtype in simtypes:
     params = [simtype,'b200','n1024','t0.005','h2','isothermal']
     filenames = [filename for filename in results if all(param in filename for param in params)]
-    filenames.append('fluid_b200_n512_t0.005_h2_isothermal10.out')
-    filenames.append('fluid_b200_n512_t0.005_h2_isothermal100.out')
+    filenames.append('fluid_b200_n512_t0.005_h2_isothermal20.out')
+    filenames.append('fluid_b200_n512_t0.005_h2_isothermal200.out')
     filenames.append('fluid_b200_n1024_t0.005_h2_z50.out')
     base = 'particle_b200_n1024_t0.005_h2_z50.out'
     
