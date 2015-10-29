@@ -21,7 +21,7 @@ for simtype in simtypes:
     for filename in filenames:
         if 'isothermal' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            if int(isothermal) < 300:
+            if int(isothermal) <= 400:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
