@@ -25,7 +25,7 @@ for simtype in simtypes:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
-                style = '--' if 'minpressure' in filename else '-'
+                style = '-x' if 'minpressure' in filename else '-'
                 plt.semilogx(kvalues, ps, style, label='Isothermal fluid cs='+isothermal)
         elif filename is 'fluid_b400_n1024_t0.005_h2_z50.out': 
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
