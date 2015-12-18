@@ -7,6 +7,7 @@ result_dir = '../../results/'
 results = os.listdir(result_dir)
 
 isothermalpattern = re.compile(r'_iso(\d+)')
+testgrowthpattern = re.compile(r'testgrowthcs(\d+)')
 npattern = re.compile(r'_n(\d+)')
 
 simtypes = ['fluid']
@@ -21,7 +22,7 @@ for simtype in simtypes:
     for filename in filenames:
         if 'iso' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            if int(isothermal) < 300:
+            if isothermal in ['10','30','100']:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
@@ -30,6 +31,17 @@ for simtype in simtypes:
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label='Adiabatic fluid')
+
+filenames = [filename for filename in results if 'testgrowth' in filename]
+for filename in filenames:
+    testgrowth = testgrowthpattern.findall(filename)[0]
+    if testgrowth in ['10','40','100']:
+        label = 'predicted cs='+testgrowth
+        col1, kvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+filename, unpack=True)
+        style = '-x'
+        ps = (sqrtsuppression**2) - 1
+        #ps /= 4*np.pi**2
+        plt.semilogx(kvalues, ps, style, label=label)
 
 plt.xlim([1e-1,5e0])
 plt.ylim([-0.1,0.1])
