@@ -11,16 +11,15 @@ npattern = re.compile(r'_n(\d+)')
 
 simtypes = ['fluid']
 for simtype in simtypes:
-    params = [simtype,'b100','n512','t0.005','h2','isothermal']
+    params = [simtype,'b100','n1024','t0.005','h2','isothermal']
     filenames = [filename for filename in results if all(param in filename for param in params)]
-    filenames.append('fluid_b100_n512_t0.005_h2_z50.out')
-    filenames.append('fluid_b100_n1024_t0.005_h2_isothermal30_minpressure.out')
-    base = 'particle_b100_n512_t0.005_h2_z50.out'
+    filenames.append('fluid_b100_n1024_t0.005_h2_z50.out')
+    base = 'particle_b100_n1024_t0.005_h2_z50.out'
     
     kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
     for filename in filenames:
-        if 'isothermal' in filename:
+        if 'isothermal' in filename and 'minpressure' not in filename:
             isothermal = isothermalpattern.findall(filename)[0]
             if int(isothermal) < 300:
                 n = npattern.findall(filename)[0]
@@ -28,7 +27,7 @@ for simtype in simtypes:
                 ps = (ps - ps_base)/ps_base
                 style = '-x' if 'minpressure' in filename else '-'
                 plt.semilogx(kvalues, ps, style, label='Isothermal fluid cs='+isothermal)
-        elif filename is 'fluid_b100_n512_t0.005_h2_z50.out': 
+        elif filename is 'fluid_b100_n1024_t0.005_h2_z50.out': 
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label='Adiabatic fluid')
