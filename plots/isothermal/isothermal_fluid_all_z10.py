@@ -12,23 +12,24 @@ testgrowthpattern = re.compile(r'testgrowthcs(\d+)')
 
 simtypes = ['fluid']
 for simtype in simtypes:
-    params = [simtype,'b100','n512','t0.005','h2','iso','z10_']
+    params = [simtype,'b100','n1024','t0.005','h2','iso','z10_']
     filenames = [filename for filename in results if all(param in filename for param in params)]
     for filename in filenames:
-        label = simtype
-        isothermal = isothermalpattern.findall(filename)[0]
-        if isothermal in ['10','30','100']:
-            label += ' cs='+isothermal
-            kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
-            style = '-'
-            plt.loglog(kvalues, ps, style, label=label)
+        if 'minpressure' not in filename:
+            label = simtype
+            isothermal = isothermalpattern.findall(filename)[0]
+            if isothermal in ['10','30','100']:
+                label += ' cs='+isothermal
+                kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
+                style = '-'
+                plt.loglog(kvalues, ps, style, label=label)
 
 
 
 filenames = [filename for filename in results if 'testgrowth' in filename]
 for filename in filenames:
     testgrowth = testgrowthpattern.findall(filename)[0]
-    if testgrowth in ['10','40','100']:
+    if testgrowth in ['10','30','100']:
         label = 'predicted cs='+testgrowth
         col1, kvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+filename, unpack=True)
         style = '--'
@@ -57,7 +58,7 @@ plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$P(k)$', fontsize=14)
 plt.title('Power Spectrum, Isothermal Fluid at Z=10')
 plt.legend(handles2, labels2, numpoints=1, loc='best')
-particleresults = 'particle_b100_n512_t0.005_h2_z10.out'
+particleresults = 'particle_b100_n1024_t0.005_h2_z10.out'
 particlekvalues, particleps = np.loadtxt(result_dir+particleresults, unpack=True)
 col1, linearkvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+'testgrowthcs10.dat', unpack=True)
 plt.loglog(particlekvalues, particleps, '-x', label='particle')

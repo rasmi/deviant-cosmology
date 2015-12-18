@@ -12,22 +12,22 @@ npattern = re.compile(r'_n(\d+)')
 
 simtypes = ['fluid']
 for simtype in simtypes:
-    params = [simtype,'b100','n512','t0.005','h2','iso','z10_']
+    params = [simtype,'b100','n1024','t0.005','h2','iso','z10_']
     filenames = [filename for filename in results if all(param in filename for param in params)]
-    filenames.append('fluid_b100_n512_t0.005_h2_z10.out')
-    base = 'particle_b100_n512_t0.005_h2_z10.out'
+    filenames.append('fluid_b100_n1024_t0.005_h2_z10.out')
+    base = 'particle_b100_n1024_t0.005_h2_z10.out'
     
     kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
     for filename in filenames:
-        if 'iso' in filename:
+        if 'iso' in filename and 'minpressure' not in filename:
             isothermal = isothermalpattern.findall(filename)[0]
             if isothermal in ['10','30','100']:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
                 plt.semilogx(kvalues, ps, '-', label='Isothermal fluid cs='+isothermal)
-        elif filename is 'fluid_b100_n512_t0.005_h2_z10.out': 
+        elif filename is 'fluid_b100_n1024_t0.005_h2_z10.out': 
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label='Adiabatic fluid')
@@ -35,7 +35,7 @@ for simtype in simtypes:
 filenames = [filename for filename in results if 'testgrowth' in filename]
 for filename in filenames:
     testgrowth = testgrowthpattern.findall(filename)[0]
-    if testgrowth in ['10','40','100']:
+    if testgrowth in ['10','30','100']:
         label = 'predicted cs='+testgrowth
         col1, kvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+filename, unpack=True)
         style = '-x'
