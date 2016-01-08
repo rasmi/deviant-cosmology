@@ -15,12 +15,13 @@ for simtype in simtypes:
     params = [simtype,'b100','n512','t0.005','h2','iso','z10_']
     filenames = [filename for filename in results if all(param in filename for param in params)]
     filenames.append('fluid_b100_n1024_t0.005_h2_z10.out')
+    filenames.extend(['fluid_b100_n1024_t0.005_h2_z10_iso10_minpressure16.out', 'fluid_b100_n1024_t0.005_h2_z10_iso30_minpressure16.out', 'fluid_b100_n1024_t0.005_h2_z10_iso100_minpressure16.out'])
     base = 'particle_b100_n1024_t0.005_h2_z10.out'
     
     kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
     for filename in filenames:
-        if 'iso' in filename and 'minpressure' in filename:
+        if 'iso' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
             if isothermal in ['10','30','100']:
                 n = npattern.findall(filename)[0]
