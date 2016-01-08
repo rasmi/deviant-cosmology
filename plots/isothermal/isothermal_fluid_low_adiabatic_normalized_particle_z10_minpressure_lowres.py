@@ -20,7 +20,7 @@ for simtype in simtypes:
     kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
     for filename in filenames:
-        if 'iso' in filename and 'minpressure' in filename:
+        if 'iso' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
             if isothermal in ['10','30','100']:
                 n = npattern.findall(filename)[0]
