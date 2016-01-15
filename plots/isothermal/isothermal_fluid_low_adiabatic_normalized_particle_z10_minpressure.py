@@ -15,7 +15,7 @@ for simtype in simtypes:
     params = [simtype,'b100','n1024','t0.005','h2','iso','z10_','z100']
     filenames = [filename for filename in results if all(param in filename for param in params)]
     filenames.append('fluid_b100_n1024_t0.005_h2_z100_z10.out')
-    base = 'particle_b100_n1024_t0.005_h2_z10.out'
+    base = 'particle_b100_n1024_t0.005_h2_z100_z10.out'
     
     kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 
