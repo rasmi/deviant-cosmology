@@ -22,7 +22,7 @@ for simtype in simtypes:
     for filename in filenames:
         if 'iso' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            if isothermal in ['10','30','100']:
+            if isothermal in ['10','30','100','300']:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
@@ -35,7 +35,7 @@ for simtype in simtypes:
 filenames = [filename for filename in results if 'testgrowth' in filename]
 for filename in filenames:
     testgrowth = testgrowthpattern.findall(filename)[0]
-    if testgrowth in ['10','30','100']:
+    if testgrowth in ['10','30','100','300']:
         label = 'predicted cs='+testgrowth
         col1, kvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+filename, unpack=True)
         style = '-x'
