@@ -48,7 +48,7 @@ plt.ylim([-0.1,0.1])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Relative Power Spectrum, Isothermal and Adiabatic Fluid Comparison z=10')
-plt.legend(numpoints=1, loc='best')
+plt.legend(numpoints=1, loc='best', fontsize=11)
 plt.savefig('isothermal_fluid_low_adiabatic_normalized_particle_z10_minpressure.png')
 
 plt.show()
