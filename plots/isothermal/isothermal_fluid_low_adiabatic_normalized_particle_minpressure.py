@@ -32,8 +32,11 @@ for simtype in simtypes:
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label='Adiabatic fluid')
 
-linear_kvalues, linear_ps = np.loadtxt(result_dir+'particle_b100_n1024_t0.005_h2_z100_z100.out', unpack=True)
-linear_ps*=5983.9
+
+base = 'fluid_b200_n1024_t0.005_h2_z50.out'
+kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
+linear_kvalues, linear_ps = np.loadtxt(result_dir+'fluid_b200_n1024_t0.005_h2_z10.out', unpack=True)
+linear_ps*=70.6
 linear_ps = (linear_ps - ps_base)/ps_base
 plt.semilogx(linear_kvalues, linear_ps, '-', label='Predicted linear particle')
 
