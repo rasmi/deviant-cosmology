@@ -32,16 +32,14 @@ for simtype in simtypes:
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label='Adiabatic fluid')
 
-
-base = 'fluid_b200_n1024_t0.005_h2_z50.out'
-kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
-linear_kvalues, linear_ps = np.loadtxt(result_dir+'fluid_b200_n1024_t0.005_h2_z10.out', unpack=True)
-linear_ps*=70.6
-linear_ps = (linear_ps - ps_base)/ps_base
+linear_kvalues, linear_ps = np.loadtxt(result_dir+'particle_b400_n1024_t0.005_h2_z100_z100.out', unpack=True)
+linear_kvalues_base, linear_ps_base = np.loadtxt(result_dir+'particle_b400_n1024_t0.005_h2_z100.out', unpack=True)
+linear_ps*=5983.9
+linear_ps = (linear_ps - linear_ps_base)/linear_ps_base
 plt.semilogx(linear_kvalues, linear_ps, '-', label='Predicted linear particle')
 
-plt.xlim([1e-1,5e0])
-plt.ylim([-1.0,0.5])
+plt.xlim([0.03,7.0])
+plt.ylim([-1.0,0.3])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Relative Power Spectrum, Isothermal and Adiabatic Fluid Comparison')
