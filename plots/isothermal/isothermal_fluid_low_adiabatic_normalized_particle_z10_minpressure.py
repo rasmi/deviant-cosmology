@@ -22,7 +22,7 @@ for simtype in simtypes:
     for filename in filenames:
         if 'iso' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            if isothermal in ['10','30','100','300']:
+            if isothermal in ['10','30','100','200','300']:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
@@ -48,7 +48,7 @@ linear_kvalues_base, linear_ps_base = np.loadtxt(result_dir+'particle_b400_n1024
 linear_ps*=5983.9
 linear_ps/=70.6
 linear_ps = (linear_ps - linear_ps_base)/linear_ps_base
-plt.semilogx(linear_kvalues, linear_ps, '-', label='Predicted linear particle')
+plt.semilogx(linear_kvalues, linear_ps, '-x', label='Predicted linear particle')
 
 plt.xlim([0.03,7.0])
 plt.ylim([-0.3,0.1])

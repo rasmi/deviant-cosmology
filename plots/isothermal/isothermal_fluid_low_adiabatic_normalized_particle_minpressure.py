@@ -25,7 +25,7 @@ for simtype in simtypes:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
-                style = '-x' if 'minpressure16' in filename else '-'
+                style = '-'
                 plt.semilogx(kvalues, ps, style, label='Isothermal fluid cs='+isothermal)
         elif filename is 'fluid_b100_n1024_t0.005_h2_z100.out': 
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
@@ -36,7 +36,7 @@ linear_kvalues, linear_ps = np.loadtxt(result_dir+'particle_b400_n1024_t0.005_h2
 linear_kvalues_base, linear_ps_base = np.loadtxt(result_dir+'particle_b400_n1024_t0.005_h2_z100.out', unpack=True)
 linear_ps*=5983.9
 linear_ps = (linear_ps - linear_ps_base)/linear_ps_base
-plt.semilogx(linear_kvalues, linear_ps, '-', label='Predicted linear particle')
+plt.semilogx(linear_kvalues, linear_ps, '-x', label='Predicted linear particle')
 
 plt.xlim([0.03,7.0])
 plt.ylim([-1.0,0.3])
