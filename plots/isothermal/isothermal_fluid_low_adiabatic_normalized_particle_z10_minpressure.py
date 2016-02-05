@@ -45,13 +45,6 @@ for filename in filenames:
         #ps /= 4*np.pi**2
         plt.semilogx(kvalues, ps, style, label=label)
 
-linear_kvalues, linear_ps = np.loadtxt(result_dir+'particle_b400_n1024_t0.005_h2_z100_z100.out', unpack=True)
-linear_kvalues_base, linear_ps_base = np.loadtxt(result_dir+'particle_b400_n1024_t0.005_h2_z100_z10.out', unpack=True)
-linear_ps*=5983.9
-linear_ps/=70.6
-linear_ps = (linear_ps - linear_ps_base)/linear_ps_base
-plt.semilogx(linear_kvalues, linear_ps, '-x', label='Predicted linear particle')
-
 plt.xlim([0.03,7.0])
 plt.ylim([-0.3,0.1])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
