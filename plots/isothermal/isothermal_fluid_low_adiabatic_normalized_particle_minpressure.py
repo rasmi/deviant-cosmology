@@ -36,7 +36,7 @@ _, linear_kvalues, linear_ps, nonlinear_ps = np.loadtxt(result_dir+'testPk0.dat'
 linear_ps = (linear_ps - nonlinear_ps)/nonlinear_ps
 plt.semilogx(linear_kvalues, linear_ps, '-x', label='Predicted linear particle')
 
-plt.xlim([0.03,7.0])
+plt.xlim([0.1,1])
 plt.ylim([-1.0,0.3])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)

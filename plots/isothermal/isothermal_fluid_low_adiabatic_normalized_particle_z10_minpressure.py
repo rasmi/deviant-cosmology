@@ -45,7 +45,7 @@ for filename in filenames:
         #ps /= 4*np.pi**2
         plt.semilogx(kvalues, ps, style, label=label)
 
-plt.xlim([0.03,7.0])
+plt.xlim([0.1,7.0])
 plt.ylim([-0.3,0.1])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
