@@ -53,7 +53,6 @@ for simtype in simtypes:
     for filename in filenames:
         if 'isothermal' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            print isothermal
             if int(isothermal) <= 300:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
@@ -69,18 +68,7 @@ for simtype in simtypes:
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label=None)
 
-_, linear_kvalues, linear_ps, nonlinear_ps = np.loadtxt(result_dir+'testPk0.dat', unpack=True)
-linear_ps = (linear_ps - nonlinear_ps)/nonlinear_ps
-plt.semilogx(linear_kvalues, linear_ps, '-x', label='Predicted linear particle')
-
-_, linear_kvalues_400, _, nonlinear_ps_400, linear_ps_400, oneloop_400 = np.loadtxt(result_dir+'testPk0.400.dat', unpack=True)
-linear_ps_400 = (linear_ps_400 - nonlinear_ps_400)/nonlinear_ps_400
-oneloop_400 = (oneloop_400 - nonlinear_ps_400)/nonlinear_ps_400
-plt.semilogx(linear_kvalues_400, linear_ps_400, '-x', label='linear prediction')
-plt.semilogx(linear_kvalues_400, oneloop_400, '-x', label='one-loop')
-
-
-base = 'particle_b200_n1024_t0.005_h2_z50.out'
+base = 'particle_b200_n1024_t0.005_h2_z100.out'
 kvalues_base, ps_base = np.loadtxt(result_dir+base, unpack=True)
 kvalues_base = kvalues_base[kvalues_base < 10]
 ps_base = ps_base[:len(kvalues_base)]
@@ -94,7 +82,6 @@ for simtype in simtypes:
     for filename in filenames:
         if 'isothermal' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            print isothermal
             if int(isothermal) <= 300:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
@@ -109,6 +96,16 @@ for simtype in simtypes:
             ps = ps[:len(kvalues)]
             ps = (ps - ps_base)/ps_base
             plt.semilogx(kvalues, ps, '--', label=None)
+
+_, linear_kvalues, linear_ps, nonlinear_ps = np.loadtxt(result_dir+'testPk0.dat', unpack=True)
+linear_ps = (linear_ps - nonlinear_ps)/nonlinear_ps
+plt.semilogx(linear_kvalues, linear_ps, '-x', label='Predicted linear particle')
+
+_, linear_kvalues_400, _, nonlinear_ps_400, linear_ps_400, oneloop_400 = np.loadtxt(result_dir+'testPk0.400.dat', unpack=True)
+linear_ps_400 = (linear_ps_400 - nonlinear_ps_400)/nonlinear_ps_400
+oneloop_400 = (oneloop_400 - nonlinear_ps_400)/nonlinear_ps_400
+plt.semilogx(linear_kvalues_400, linear_ps_400, '-x', label='linear prediction')
+plt.semilogx(linear_kvalues_400, oneloop_400, '-x', label='one-loop')
 
 plt.xlim([0.027,1])
 plt.ylim([-1.0,0.3])

@@ -44,11 +44,9 @@ for simtype in simtypes:
     params = [simtype,'b400','n1024','t0.005','h2','iso','z10_','z100']
     filenames = [filename for filename in results if all(param in filename for param in params)]
     filenames.append('fluid_b400_n1024_t0.005_h2_z100_z10.out')
-    print filenames
     for filename in filenames:
         if 'iso' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            print isothermal
             if int(isothermal) <= 300:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
@@ -74,11 +72,9 @@ for simtype in simtypes:
     params = [simtype,'b200','n1024','t0.005','h2','iso','z10_','z100']
     filenames = [filename for filename in results if all(param in filename for param in params)]
     filenames.append('fluid_b200_n1024_t0.005_h2_z10.out')
-    print filenames
     for filename in filenames:
         if 'iso' in filename and 'minpressure16' in filename:
             isothermal = isothermalpattern.findall(filename)[0]
-            print isothermal
             if int(isothermal) <= 300:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
@@ -86,7 +82,7 @@ for simtype in simtypes:
                 ps = ps[:len(kvalues)]
                 ps = (ps - ps_base)/ps_base
                 style = '-'
-                plt.semilogx(kvalues, ps, style, label=str(isothermal) + 'b200')
+                plt.semilogx(kvalues, ps, style, label=None)
         elif filename is 'fluid_b200_n1024_t0.005_h2_z100_z10.out': 
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             kvalues = kvalues[:len(kvalues_base)]
