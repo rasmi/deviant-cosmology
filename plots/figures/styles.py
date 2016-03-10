@@ -1,4 +1,7 @@
-labels = {'b100': True}
+labels = {
+    'b100': True,
+    'b200': True
+}
 
 linecolors = {
     'b100': 'g',

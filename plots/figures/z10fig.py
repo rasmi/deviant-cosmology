@@ -14,7 +14,7 @@ isothermalpattern = re.compile(r'_iso(\d+)')
 testgrowthpattern = re.compile(r'testgrowthcs(\d+)')
 npattern = re.compile(r'_n(\d+)')
 
-boxsizes = ['b100','b200','b400']
+boxsizes = ['b200']
 soundspeeds = ['50','100','200','300']
 
 for boxsize in boxsizes:
@@ -32,30 +32,30 @@ for boxsize in boxsizes:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
-                label = 'Isothermal fluid cs='+isothermal if boxsize in labels else None
+                label = 'Isothermal fluid $c_s='+isothermal+'$' if boxsize in labels else None
                 plt.semilogx(kvalues, ps, linestyles['isothermal'], label=label, color=linecolors[isothermal], alpha=lineopacity[isothermal])
         elif filename == 'fluid_'+boxsize+'_n1024_t0.005_h2_z100_z10.out':
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
             label = 'Adiabatic fluid' if boxsize in labels else None
-            plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors['adiabatic'], alpha=lineopacity[boxsize])
+            plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'])
 
-filenames = [filename for filename in results if 'testgrowth' in filename]
-for filename in filenames:
-    testgrowth = testgrowthpattern.findall(filename)[0]
-    if testgrowth in soundspeeds:
-        label = 'predicted cs='+testgrowth
-        col1, kvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+filename, unpack=True)
-        style = '-x'
-        ps = (sqrtsuppression**2) - 1
-        #plt.semilogx(kvalues, ps, style, label=label)
+def sortlabels(item):
+    if len(item[1].split(' ')) > 2:
+        return int(item[1].split(' ')[2].split('=')[1].replace('$',''))
+    else:
+        return item[1].split(' ')[0]
 
-plt.xlim([0.1,7.0])
-plt.ylim([-0.3,0.1])
+handles, labels = plt.gca().get_legend_handles_labels()
+hl = sorted(zip(handles, labels), key=lambda item: sortlabels(item))
+handles2, labels2 = zip(*hl)
+
+plt.xlim([5.839613682298916419e-02,5.0])
+plt.ylim([-0.2,0.05])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
-plt.title('Relative Power Spectrum, Isothermal and Adiabatic Fluid Comparison z=10')
-plt.legend(numpoints=1, loc='best', fontsize=10)
+plt.title('Relative Power Spectrum, z=10')
+plt.legend(handles2, labels2, numpoints=1, loc='lower left', fontsize=10, frameon=False)
 plt.savefig(paper_dir+'z10fig.pdf', format='pdf')
 
 plt.show()

@@ -13,7 +13,7 @@ results = os.listdir(result_dir)
 isothermalpattern = re.compile(r'_isothermal(\d+)')
 npattern = re.compile(r'_n(\d+)')
 
-boxsizes = ['b100','b200','b400']
+boxsizes = ['b200']
 soundspeeds = ['50','100','200','300']
 
 for boxsize in boxsizes:
@@ -31,7 +31,7 @@ for boxsize in boxsizes:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
-                label = 'Isothermal fluid cs='+isothermal if boxsize in labels else None
+                label = 'Isothermal fluid $c_s='+isothermal+'$' if boxsize in labels else None
                 plt.semilogx(kvalues, ps, linestyles['isothermal'], label=label, color=linecolors[isothermal], alpha=lineopacity[isothermal])
         elif filename == 'fluid_'+boxsize+'_n1024_t0.005_h2_z100.out':
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
@@ -39,22 +39,28 @@ for boxsize in boxsizes:
             label = 'Adiabatic fluid' if boxsize in labels else None
             plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors[isothermal], alpha=lineopacity['adiabatic'])
 
-_, linear_kvalues, linear_ps, nonlinear_ps = np.loadtxt(result_dir+'testPk0.dat', unpack=True)
-linear_ps = (linear_ps - nonlinear_ps)/nonlinear_ps
-plt.semilogx(linear_kvalues, linear_ps, linestyles['prediction'], label='linear prediction b100', color=linecolors['prediction'], alpha=lineopacity['prediction_100'])
-
 _, linear_kvalues_400, _, nonlinear_ps_400, linear_ps_400, oneloop_400 = np.loadtxt(result_dir+'testPk0.400.dat', unpack=True)
 linear_ps_400 = (linear_ps_400 - nonlinear_ps_400)/nonlinear_ps_400
 oneloop_400 = (oneloop_400 - nonlinear_ps_400)/nonlinear_ps_400
-plt.semilogx(linear_kvalues_400, linear_ps_400, linestyles['prediction'], label='linear prediction b400', color=linecolors['prediction'], alpha=lineopacity['prediction_400'])
-plt.semilogx(linear_kvalues_400, oneloop_400, linestyles['oneloop'], label='one-loop', color=linecolors['oneloop'], alpha=lineopacity['oneloop'])
+plt.semilogx(linear_kvalues_400, linear_ps_400, linestyles['prediction'], label='Linear prediction', color=linecolors['prediction'], alpha=lineopacity['prediction_400'])
+plt.semilogx(linear_kvalues_400, oneloop_400, linestyles['oneloop'], label='One-loop', color=linecolors['oneloop'], alpha=lineopacity['oneloop'])
 
-plt.xlim([0.027,7.0])
-plt.ylim([-1.0,0.3])
+def sortlabels(item):
+    if len(item[1].split(' ')) > 2:
+        return int(item[1].split(' ')[2].split('=')[1].replace('$',''))
+    else:
+        return item[1].split(' ')[0]
+
+handles, labels = plt.gca().get_legend_handles_labels()
+hl = sorted(zip(handles, labels), key=lambda item: sortlabels(item))
+handles2, labels2 = zip(*hl)
+
+plt.xlim([5.839613682298916419e-02,2.4])
+plt.ylim([-1.0,0.5])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.title('Relative Power Spectrum, z=0')
-plt.legend(numpoints=1, loc='best')
+plt.legend(handles2, labels2, numpoints=1, loc='lower left', fontsize=10, frameon=False)
 plt.savefig(paper_dir+'z0fig.pdf', format='pdf')
 
 plt.show()
