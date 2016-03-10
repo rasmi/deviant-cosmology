@@ -7,7 +7,7 @@ linecolors = {
     'b100': 'g',
     'b200': 'y',
     'b400': 'r',
-    'prediction': 'r',
+    'prediction': 'k',
     'oneloop': 'k',
     'adiabatic': 'b',
     '10':'b',
@@ -22,9 +22,8 @@ lineopacity = {
     'b100': 0.4,
     'b200': 0.6,
     'b400': 0.8,
-    'prediction_400': 1.0,
-    'prediction_100': 0.6,
-    'prediction_400': 1.0,
+    'prediction_400': 0.5,
+    'prediction_100': 0.5,
     'oneloop': 1.0,
     'adiabatic': 1.0,
     '10': 0.1,
@@ -42,4 +41,9 @@ linestyles = {
     'oneloop': '-',
     'adiabatic': '--',
     'isothermal': '-'
+}
+
+linewidth = {
+    'analytic': 0.4,
+    'simulated': 2
 }

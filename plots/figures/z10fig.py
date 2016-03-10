@@ -33,12 +33,23 @@ for boxsize in boxsizes:
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
                 label = 'Isothermal fluid $c_s='+isothermal+'$' if boxsize in labels else None
-                plt.semilogx(kvalues, ps, linestyles['isothermal'], label=label, color=linecolors[isothermal], alpha=lineopacity[isothermal])
+                plt.semilogx(kvalues, ps, linestyles['isothermal'], label=label, color=linecolors[isothermal], alpha=lineopacity[isothermal], linewidth=linewidth['simulated'])
         elif filename == 'fluid_'+boxsize+'_n1024_t0.005_h2_z100_z10.out':
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
             label = 'Adiabatic fluid' if boxsize in labels else None
-            plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'])
+            plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated'])
+
+filenames = [filename for filename in results if 'testgrowth' in filename]
+for filename in filenames:
+    testgrowth = testgrowthpattern.findall(filename)[0]
+    if testgrowth in soundspeeds:
+        label = 'Linear prediction $cs='+testgrowth+'$'
+        col1, kvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+filename, unpack=True)
+        style = '-'
+        ps = (sqrtsuppression**2) - 1
+        plt.semilogx(kvalues, ps, style, color=linecolors['adiabatic'], alpha=lineopacity[testgrowth], linewidth=linewidth['analytic'])
+
 
 def sortlabels(item):
     if len(item[1].split(' ')) > 2:
@@ -50,11 +61,10 @@ handles, labels = plt.gca().get_legend_handles_labels()
 hl = sorted(zip(handles, labels), key=lambda item: sortlabels(item))
 handles2, labels2 = zip(*hl)
 
-plt.xlim([5.839613682298916419e-02,5.0])
+plt.xlim([5.839613682298916419e-02,2.0])
 plt.ylim([-0.2,0.05])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
-plt.title('Relative Power Spectrum, z=10')
 plt.legend(handles2, labels2, numpoints=1, loc='lower left', fontsize=10, frameon=False)
 plt.savefig(paper_dir+'z10fig.pdf', format='pdf')
 

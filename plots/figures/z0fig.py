@@ -32,18 +32,18 @@ for boxsize in boxsizes:
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
                 label = 'Isothermal fluid $c_s='+isothermal+'$' if boxsize in labels else None
-                plt.semilogx(kvalues, ps, linestyles['isothermal'], label=label, color=linecolors[isothermal], alpha=lineopacity[isothermal])
+                plt.semilogx(kvalues, ps, linestyles['isothermal'], label=label, color=linecolors[isothermal], alpha=lineopacity[isothermal], linewidth=linewidth['simulated'])
         elif filename == 'fluid_'+boxsize+'_n1024_t0.005_h2_z100.out':
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
             label = 'Adiabatic fluid' if boxsize in labels else None
-            plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors[isothermal], alpha=lineopacity['adiabatic'])
+            plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors[isothermal], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated'])
 
 _, linear_kvalues_400, _, nonlinear_ps_400, linear_ps_400, oneloop_400 = np.loadtxt(result_dir+'testPk0.400.dat', unpack=True)
 linear_ps_400 = (linear_ps_400 - nonlinear_ps_400)/nonlinear_ps_400
 oneloop_400 = (oneloop_400 - nonlinear_ps_400)/nonlinear_ps_400
-plt.semilogx(linear_kvalues_400, linear_ps_400, linestyles['prediction'], label='Linear prediction', color=linecolors['prediction'], alpha=lineopacity['prediction_400'])
-plt.semilogx(linear_kvalues_400, oneloop_400, linestyles['oneloop'], label='One-loop', color=linecolors['oneloop'], alpha=lineopacity['oneloop'])
+plt.semilogx(linear_kvalues_400, linear_ps_400, linestyles['prediction'], label='Linear prediction', color=linecolors['prediction'], alpha=lineopacity['prediction_400'], linewidth=linewidth['analytic'])
+plt.semilogx(linear_kvalues_400, oneloop_400, linestyles['oneloop'], label='One-loop', color=linecolors['oneloop'], alpha=lineopacity['oneloop'], linewidth=linewidth['analytic'])
 
 def sortlabels(item):
     if len(item[1].split(' ')) > 2:
@@ -55,11 +55,10 @@ handles, labels = plt.gca().get_legend_handles_labels()
 hl = sorted(zip(handles, labels), key=lambda item: sortlabels(item))
 handles2, labels2 = zip(*hl)
 
-plt.xlim([5.839613682298916419e-02,2.4])
+plt.xlim([5.839613682298916419e-02,2.0])
 plt.ylim([-1.0,0.5])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
-plt.title('Relative Power Spectrum, z=0')
 plt.legend(handles2, labels2, numpoints=1, loc='lower left', fontsize=10, frameon=False)
 plt.savefig(paper_dir+'z0fig.pdf', format='pdf')
 
