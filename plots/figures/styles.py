@@ -22,8 +22,7 @@ lineopacity = {
     'b100': 0.4,
     'b200': 0.6,
     'b400': 0.8,
-    'prediction_400': 0.5,
-    'prediction_100': 0.5,
+    'prediction': 0.6,
     'oneloop': 1.0,
     'adiabatic': 1.0,
     '10': 0.1,
@@ -32,8 +31,6 @@ lineopacity = {
     '100': 0.4,
     '200': 0.6,
     '300': 0.8,
-    'oneloop_400': 0.6,
-    'oneloop_100': 1.0
 }
 
 linestyles = {
@@ -45,5 +42,7 @@ linestyles = {
 
 linewidth = {
     'analytic': 0.4,
-    'simulated': 2
+    'simulated': 2,
+    'oneloop': 0.8,
+    'prediction': 0.2
 }
