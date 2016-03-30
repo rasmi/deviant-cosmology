@@ -37,7 +37,7 @@ for boxsize in boxsizes:
         elif filename == 'fluid_'+boxsize+'_n1024_t0.005_h2_z100.out':
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
-            plt.semilogx(kvalues, ps, linestyles['adiabatic'], color=linecolors[soundspeeds[-1]], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated'])
+            plt.semilogx(kvalues, ps, linestyles['adiabatic'], color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated'])
 
 _, linear_kvalues_400, _, nonlinear_ps_400, linear_ps_400, oneloop_400 = np.loadtxt(result_dir+'testPk0.400.dat', unpack=True)
 oneloop_400 = (oneloop_400 - nonlinear_ps_400)/nonlinear_ps_400
@@ -51,7 +51,7 @@ for speed in soundspeeds:
     handles.append(mlines.Line2D([], [], linestyle=linestyles['isothermal'], color=linecolors[speed], alpha=lineopacity[speed], linewidth=linewidth['simulated']))
     labels.append('$c_s='+speed+'$')
 
-handles.append(mlines.Line2D([], [], linestyle=linestyles['adiabatic'], color=linecolors[soundspeeds[-1]], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated']))
+handles.append(mlines.Line2D([], [], linestyle=linestyles['adiabatic'], color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated']))
 labels.append('Adiabatic fluid')
 
 handles.append(mlines.Line2D([], [], linestyle=linestyles['oneloop'], color=linecolors['oneloop'], alpha=lineopacity['oneloop'], linewidth=linewidth['oneloop']))

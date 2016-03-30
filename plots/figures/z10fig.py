@@ -3,6 +3,8 @@ import re
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
+import matplotlib.lines as mlines
+import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 from styles import *
 
@@ -27,45 +29,43 @@ for boxsize in boxsizes:
 
     for filename in filenames:
         if 'iso' in filename and 'minpressure16' in filename:
-            isothermal = isothermalpattern.findall(filename)[0]
-            if isothermal in soundspeeds:
+            speed = isothermalpattern.findall(filename)[0]
+            if speed in soundspeeds:
                 n = npattern.findall(filename)[0]
                 kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
                 ps = (ps - ps_base)/ps_base
-                label = 'Isothermal fluid $c_s='+isothermal+'$' if boxsize in labels else None
-                plt.semilogx(kvalues, ps, linestyles['isothermal'], label=label, color=linecolors[isothermal], alpha=lineopacity[isothermal], linewidth=linewidth['simulated'])
+                plt.semilogx(kvalues, ps, linestyles['isothermal'], color=linecolors[speed], alpha=lineopacity[speed], linewidth=linewidth['simulated'])
         elif filename == 'fluid_'+boxsize+'_n1024_t0.005_h2_z100_z10.out':
             kvalues, ps = np.loadtxt(result_dir+filename, unpack=True)
             ps = (ps - ps_base)/ps_base
-            label = 'Adiabatic fluid' if boxsize in labels else None
-            plt.semilogx(kvalues, ps, linestyles['adiabatic'], label=label, color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated'])
+            plt.semilogx(kvalues, ps, linestyles['adiabatic'], color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated'])
 
 filenames = [filename for filename in results if 'testgrowth' in filename]
 for filename in filenames:
-    testgrowth = testgrowthpattern.findall(filename)[0]
-    if testgrowth in soundspeeds:
-        label = 'Linear prediction $cs='+testgrowth+'$'
+    speed = testgrowthpattern.findall(filename)[0]
+    if speed in soundspeeds:
         col1, kvalues, linearpower, col4, col5, sqrtsuppression = np.loadtxt(result_dir+filename, unpack=True)
-        style = '-'
         ps = (sqrtsuppression**2) - 1
-        plt.semilogx(kvalues, ps, style, color=linecolors['adiabatic'], alpha=lineopacity[testgrowth], linewidth=linewidth['analytic'])
+        plt.semilogx(kvalues, ps, linestyles['prediction'], color=linecolors['adiabatic'], alpha=lineopacity[speed], linewidth=linewidth['analytic'])
 
+handles = []
+labels = []
+for speed in soundspeeds:
+    handles.append(mlines.Line2D([], [], linestyle=linestyles['isothermal'], color=linecolors[speed], alpha=lineopacity[speed], linewidth=linewidth['simulated']))
+    labels.append('$c_s='+speed+'$')
 
-def sortlabels(item):
-    if len(item[1].split(' ')) > 2:
-        return int(item[1].split(' ')[2].split('=')[1].replace('$',''))
-    else:
-        return item[1].split(' ')[0]
+handles.append(mlines.Line2D([], [], linestyle=linestyles['adiabatic'], color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated']))
+labels.append('Adiabatic fluid')
 
-handles, labels = plt.gca().get_legend_handles_labels()
-hl = sorted(zip(handles, labels), key=lambda item: sortlabels(item))
-handles2, labels2 = zip(*hl)
+handles.append(mlines.Line2D([], [], linestyle=linestyles['prediction'], color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['analytic']))
+labels.append('Analytic prediciton')
+
 
 plt.xlim([5.839613682298916419e-02,2.0])
 plt.ylim([-0.2,0.05])
 plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
-plt.legend(handles2, labels2, numpoints=1, loc='lower left', fontsize=10, frameon=False)
+plt.legend(handles, labels, numpoints=1, loc='lower left', prop=fm.FontProperties(family='serif', size=10), frameon=False)
 plt.savefig(paper_dir+'z10fig.pdf', format='pdf')
 
 plt.show()
