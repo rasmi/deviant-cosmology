@@ -32,7 +32,7 @@ def gaussian3D(sigma, start, stop, n):
 sigma = 2.0/3.0
 gaussian = gaussian3D(sigma, -100, 100, 1024)
 
-ds = yt.load('RD0000/RD0000')
+ds = yt.load(directory+'/'+directory)
 ad = ds.all_data()
 
 density = ad[fields['density']]
