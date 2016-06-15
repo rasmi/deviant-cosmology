@@ -38,8 +38,11 @@ ad = ds.all_data()
 density = ad[fields['density']]
 pressure = ad[fields['pressure']]
 
-density_convolution = fftconvolve(density, gaussian_dist)
-pressure_convolution = fftconvolve(pressure, gaussian_dist)
+density = density.reshape(gaussian.shape)
+pressure = pressure.reshape(gaussian.shape)
 
-np.savetxt('density_convolution_%s.out' % directory, density_convolution)
-np.savetxt('pressure_convolution_%s.out' % directory, pressure_convolution)
+density_convolution = fftconvolve(density, gaussian)
+pressure_convolution = fftconvolve(pressure, gaussian)
+
+np.save('density_convolution_%s.npy' % directory, density_convolution)
+np.save('pressure_convolution_%s.npy' % directory, pressure_convolution)
