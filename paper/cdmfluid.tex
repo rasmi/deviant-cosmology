@@ -88,9 +88,35 @@ it's a degenerate limit.
 
 \section{Hydrodynamic simulations}
 
-{\bf Greg.} Discussion of the hydrodynamic code, and the simulations
-we have run. Discussion of the distinction between adiabatic and
-isothermal. Discussion of what happens at shocks
+To compare the fluid and particle models for structure formation, we
+employ the {\it Enzo} code \cite{Enzo2014} in two separate modes:
+one which solves the Eulerian fluid equations, and the other which
+uses the traditional collisionless N-body equations.  Both include
+Newtonian gravity in a standard $\Lambda$CDM model with
+matter density $\Omega_m = 0.279$, baryon density $\Omega_b = 0.0463$,
+dark energy density $\Omega_\Lambda = 0.721$, Hubble constant
+$H = 70$ km/s/Mpc, and a primordial power spectral slope of $n=0.972$
+and amplitude $\sigma_8 = 0.821$.  Our fiducial box
+size is 200 Mpc/h modeled with either $1024^3$ grids or particles;
+we use the MUSIC package \cite{MUSIC} to initialize the box at $z=50$ and evolve
+to $z=0$.  
+
+For the fluid equations, we adopt the ZEUS solver in Enzo,
+largely because it is fast, robust and easy to modify the equation of state.
+We explore the impact of varying these choices in the appendix, finding
+that over the ranges presented below, the results are insensitive to our
+numerical choices.  We explore two ways to determine the pressure, the 
+first (``adiabatic"), assumes
+
+
+
+
+%{\bf Greg.} 
+%Discussion of the hydrodynamic code, and the simulations
+%we have run. Discussion of the distinction between adiabatic and
+%isothermal. Discussion of what happens at shocks
+
+
 
 \begin{figure}[htb]
 \begin{center}
