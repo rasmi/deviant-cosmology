@@ -9,6 +9,7 @@ args = parser.parse_args()
 directory = args.directory
 
 import numpy as np
+import h5py
 from scipy.signal import fftconvolve
 import yt
 
@@ -44,5 +45,11 @@ pressure = pressure.reshape(gaussian.shape)
 density_convolution = fftconvolve(density, gaussian)
 pressure_convolution = fftconvolve(pressure, gaussian)
 
-np.save('density_convolution_%s.npy' % directory, density_convolution)
-np.save('pressure_convolution_%s.npy' % directory, pressure_convolution)
+density_file = h5py.File('density_convolution_%s.hdf5' % directory, 'w')
+pressure_file = h5py.File('pressure_convolution_%s.hdf5' % directory, 'w')
+
+density_file.create_dataset('convolution', data=density_convolution)
+pressure_file.create_dataset('convolution', data=pressure_convolution)
+
+density_file.close()
+pressure_file.close()
