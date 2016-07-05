@@ -30,11 +30,13 @@ def gaussian3D(sigma, start, stop, n):
 
     return np.exp(-(x**2 + y**2 + z**2)/(2.0*sigma_square))/(np.sqrt(2.0*np.pi*sigma_square))
 
-sigma = 2.0/3.0
-gaussian = gaussian3D(sigma, -100, 100, 1024)
-
 ds = yt.load(directory+'/'+directory)
 ad = ds.all_data()
+
+resolution = ds.domain_dimensions[0]
+
+sigma = 2.0/3.0
+gaussian = gaussian3D(sigma, -100, 100, resolution)
 
 density = ad[fields['density']]
 pressure = ad[fields['pressure']]
@@ -42,8 +44,8 @@ pressure = ad[fields['pressure']]
 density = density.reshape(gaussian.shape)
 pressure = pressure.reshape(gaussian.shape)
 
-density_convolution = fftconvolve(density, gaussian)
-pressure_convolution = fftconvolve(pressure, gaussian)
+density_convolution = fftconvolve(density, gaussian, mode='same')
+pressure_convolution = fftconvolve(pressure, gaussian, mode='same')
 
 density_file = h5py.File('density_convolution_%s.hdf5' % directory, 'w')
 pressure_file = h5py.File('pressure_convolution_%s.hdf5' % directory, 'w')
