@@ -49,9 +49,12 @@ pressure_convolution = fftconvolve(pressure, gaussian, mode='same')
 
 density_file = h5py.File('density_convolution_%s.hdf5' % directory, 'w')
 pressure_file = h5py.File('pressure_convolution_%s.hdf5' % directory, 'w')
+gaussian_file = h5py.File('gaussian_%s.hdf5' % directory, 'w')
 
 density_file.create_dataset('convolution', data=density_convolution)
 pressure_file.create_dataset('convolution', data=pressure_convolution)
+gaussian_file.create_dataset('gaussian', data=gaussian)
 
 density_file.close()
 pressure_file.close()
+gaussian_file.close()
