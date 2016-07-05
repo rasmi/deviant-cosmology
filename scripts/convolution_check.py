@@ -14,7 +14,8 @@ import yt
 
 fields = {
     'density': ('gas', 'density'),
-    'pressure': ('gas', 'pressure')
+    'pressure': ('gas', 'pressure'),
+    'gaussian': ('gaussian')
 }
 
 ds = yt.load(directory+'/'+directory)
@@ -30,7 +31,7 @@ gaussian_data = np.array(gaussian_file['gaussian'][:])
 convolution_data = {
     fields['density']: density_data,
     fields['pressure']: pressure_data,
-    'gaussian': gaussian_data
+    fields['gaussian']: gaussian_data
 }
 
 bbox = np.array([[-1.0, 1.0], [-1.0, 1.0], [-1.0, 1.0]])
@@ -39,12 +40,12 @@ convolution_ds = yt.load_uniform_grid(convolution_data, density_data.shape, leng
 
 density_slice = yt.SlicePlot(ds, 'z', fields['density'])
 pressure_slice = yt.SlicePlot(ds, 'z', fields['pressure'])
-gaussian_slice = yt.SlicePlot(ds, 'z', 'gaussian')
 density_smoothed_slice = yt.SlicePlot(convolution_ds, 'z', fields['density'])
 pressure_smoothed_slice = yt.SlicePlot(convolution_ds, 'z', fields['pressure'])
+gaussian_slice = yt.SlicePlot(convolution_ds, 'z', fields['gaussian'])
 
 density_slice.save('density_slice_%s.png' % directory)
 pressure_slice.save('pressure_slice_%s.png' % directory)
-gaussian_slice.save('gaussian_slice_%s.png' % directory)
 density_smoothed_slice.save('density_smoothed_slice_%s.png' % directory)
 pressure_smoothed_slice.save('pressure_smoothed_slice_%s.png' % directory)
+gaussian_slice.save('gaussian_slice_%s.png' % directory)
