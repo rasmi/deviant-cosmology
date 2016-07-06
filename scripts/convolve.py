@@ -10,7 +10,7 @@ directory = args.directory
 
 import numpy as np
 import h5py
-from scipy.signal import fftconvolve
+from scipy.signal import convolve
 import yt
 
 fields = {
@@ -44,8 +44,8 @@ pressure = ad[fields['pressure']]
 density = density.reshape(gaussian.shape)
 pressure = pressure.reshape(gaussian.shape)
 
-density_convolution = fftconvolve(density, gaussian, mode='same')
-pressure_convolution = fftconvolve(pressure, gaussian, mode='same')
+density_convolution = convolve(density, gaussian, mode='same')
+pressure_convolution = convolve(pressure, gaussian, mode='same')
 
 convolution_file = h5py.File('convolution_%s.hdf5' % directory, 'w')
 
