@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# convolve_check.py
-# convolve_check.py RD0006
+# convolution_check.py
+# convolution_check.py RD0006
 
 import argparse
 parser = argparse.ArgumentParser()
