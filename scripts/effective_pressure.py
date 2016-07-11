@@ -51,7 +51,9 @@ pressure_file.create_dataset('p_eff_y', data=p_eff_y)
 pressure_file.create_dataset('p_eff_z', data=p_eff_z)
 pressure_file.close()
 
-for pressure in [p_eff_x, p_eff_y, p_eff_z]:
+subset = np.random.choice(len(p_eff_x), 1000)
+
+for pressure in [p_eff_x[subset], p_eff_y[subset], p_eff_z[subset]]:
     plt.loglog(density[:-1], pressure)
 
 plt.xlabel('$\\rho$')
