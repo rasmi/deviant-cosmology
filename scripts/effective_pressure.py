@@ -63,13 +63,3 @@ for i, pressure in enumerate([p_eff_x[subset], p_eff_y[subset], p_eff_z[subset]]
     ax.set_ylabel('$P_{eff}$')
     fig.savefig('effective_pressure_%s_%d.png' % (directory, i))
     fig.clf()
-
-for pressure in [p_eff_x[subset], p_eff_y[subset], p_eff_z[subset]]:
-    fig = plt.figure()
-    ax = plt.gca()
-    ax.scatter(density[:-1][subset], pressure, edgecolors='none')
-    ax.set_yscale('log')
-    ax.set_xscale('log')
-    ax.set_xlabel('$\\rho$')
-    ax.set_ylabel('$P_{eff}$')
-    fig.savefig('effective_pressure_%s_all.png' % directory)
