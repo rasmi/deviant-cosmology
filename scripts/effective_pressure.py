@@ -53,13 +53,8 @@ pressure_file.close()
 
 subset = np.random.choice(len(p_eff_x), 1000)
 
-for i, pressure in enumerate([p_eff_x[subset], p_eff_y[subset], p_eff_z[subset]]):
-    fig = plt.figure()
-    ax = plt.gca()
-    ax.scatter(density[:-1][subset], pressure, edgecolors='none')
-    ax.set_yscale('log')
-    ax.set_xscale('log')
-    ax.set_xlabel('$\\rho$')
-    ax.set_ylabel('$P_{eff}$')
-    fig.savefig('effective_pressure_%s_%d.png' % (directory, i))
-    fig.clf()
+pressure_subset_file = h5py.File('effective_pressure_subset_%s.hdf5' % directory, 'w')
+pressure_subset_file.create_dataset('p_eff_x', data=p_eff_x[subset])
+pressure_subset_file.create_dataset('p_eff_y', data=p_eff_y[subset])
+pressure_subset_file.create_dataset('p_eff_z', data=p_eff_z[subset])
+pressure_subset_file.close()
