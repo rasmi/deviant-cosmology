@@ -20,7 +20,7 @@ fields = {
 
 ds = yt.load(directory+'/'+directory)
 
-convolution_file = h5py.File('convolution_%s.hdf5' % directory, 'r')
+convolution_file = h5py.File('convolution_gaussian_%s.hdf5' % directory, 'r')
 
 density_data = np.array(convolution_file['density'][:])
 pressure_data = np.array(convolution_file['pressure'][:])
@@ -28,8 +28,7 @@ gaussian_data = np.array(convolution_file['gaussian'][:])
 
 convolution_data = {
     fields['density']: density_data,
-    fields['pressure']: pressure_data,
-    fields['gaussian']: gaussian_data
+    fields['pressure']: pressure_data
 }
 
 bbox = np.array([[-1.0, 1.0], [-1.0, 1.0], [-1.0, 1.0]])
@@ -40,10 +39,8 @@ density_slice = yt.SlicePlot(ds, 'z', fields['density'])
 pressure_slice = yt.SlicePlot(ds, 'z', fields['pressure'])
 density_smoothed_slice = yt.SlicePlot(convolution_ds, 'z', fields['density'])
 pressure_smoothed_slice = yt.SlicePlot(convolution_ds, 'z', fields['pressure'])
-gaussian_slice = yt.SlicePlot(convolution_ds, 'z', fields['gaussian'])
 
 density_slice.save('density_slice_%s.png' % directory)
 pressure_slice.save('pressure_slice_%s.png' % directory)
 density_smoothed_slice.save('density_slice_smoothed_%s.png' % directory)
 pressure_smoothed_slice.save('pressure_slice_smoothed_%s.png' % directory)
-gaussian_slice.save('gaussian_slice_%s.png' % directory)
