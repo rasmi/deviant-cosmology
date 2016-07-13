@@ -31,5 +31,5 @@ pressure_smoothed_slice = yt.ImageArray(pressure_data, info={'field': fields['pr
 
 density_slice.save('density_slice_2d_%s.png' % directory)
 pressure_slice.save('pressure_slice_2d_%s.png' % directory)
-density_smoothed_slice.save('density_slice_smoothed_2d_%s.png' % directory)
-pressure_smoothed_slice.save('pressure_slice_smoothed_2d_%s.png' % directory)
+density_smoothed_slice.save('density_slice_smoothed_2d_%s' % directory)
+pressure_smoothed_slice.save('pressure_slice_smoothed_2d_%s' % directory)
