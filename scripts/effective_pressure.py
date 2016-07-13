@@ -53,10 +53,13 @@ pressure_file.close()
 
 subset = np.random.choice(len(p_eff_x), 1000)
 
-for pressure in [p_eff_x[subset], p_eff_y[subset], p_eff_z[subset]]:
-    plt.loglog(density[:-1][subset], pressure)
-
-plt.xlabel('$\\rho$')
-plt.ylabel('$P_{eff}$')
-plt.legend(loc='best')
-plt.savefig('effective_pressure_%s.png' % directory)
+for i, pressure in enumerate([p_eff_x[subset], p_eff_y[subset], p_eff_z[subset]]):
+    fig = plt.figure()
+    ax = plt.gca()
+    ax.scatter(density[:-1][subset], pressure, edgecolors='none')
+    ax.set_yscale('log')
+    ax.set_xscale('log')
+    ax.set_xlabel('$\\rho$')
+    ax.set_ylabel('$P_{eff}$')
+    plt.savefig('effective_pressure_%s_%d.png' % (directory, i))
+    plt.clf()
