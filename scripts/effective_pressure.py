@@ -57,4 +57,5 @@ pressure_subset_file = h5py.File('effective_pressure_subset_%s.hdf5' % directory
 pressure_subset_file.create_dataset('p_eff_x', data=p_eff_x[subset])
 pressure_subset_file.create_dataset('p_eff_y', data=p_eff_y[subset])
 pressure_subset_file.create_dataset('p_eff_z', data=p_eff_z[subset])
+pressure_subset_file.create_dataset('density', data=density[:-1][subset])
 pressure_subset_file.close()
