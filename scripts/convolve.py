@@ -32,7 +32,7 @@ pressure = pressure.reshape(ds.domain_dimensions)
 density_convolution = gaussian_filter(density, sigma=sigma)
 pressure_convolution = gaussian_filter(pressure, sigma=sigma)
 
-convolution_file = h5py.File('convolution_gaussian_%s.hdf5' % directory, 'w')
+convolution_file = h5py.File('convolution_%s.hdf5' % directory, 'w')
 
 convolution_file.create_dataset('density', data=density_convolution)
 convolution_file.create_dataset('pressure', data=pressure_convolution)

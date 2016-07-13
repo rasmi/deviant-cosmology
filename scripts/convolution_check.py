@@ -14,17 +14,15 @@ import yt
 
 fields = {
     'density': ('gas', 'density'),
-    'pressure': ('gas', 'pressure'),
-    'gaussian': ('gaussian')
+    'pressure': ('gas', 'pressure')
 }
 
 ds = yt.load(directory+'/'+directory)
 
-convolution_file = h5py.File('convolution_gaussian_%s.hdf5' % directory, 'r')
+convolution_file = h5py.File('convolution_%s.hdf5' % directory, 'r')
 
 density_data = np.array(convolution_file['density'][:])
 pressure_data = np.array(convolution_file['pressure'][:])
-gaussian_data = np.array(convolution_file['gaussian'][:])
 
 convolution_data = {
     fields['density']: density_data,
