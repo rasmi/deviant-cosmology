@@ -19,15 +19,12 @@ fields = {
 }
 
 ds = yt.load(directory+'/'+directory)
-ad = ds.all_data()
+ad = ds.covering_grid(level=0, left_edge=[0.0, 0.0, 0.0], dims=ds.domain_dimensions)
 
 sigma = 2.0/3.0
 
 density = ad[fields['density']]
 pressure = ad[fields['pressure']]
-
-density = density.reshape(ds.domain_dimensions)
-pressure = pressure.reshape(ds.domain_dimensions)
 
 density_convolution = gaussian_filter(density, sigma=sigma)
 pressure_convolution = gaussian_filter(pressure, sigma=sigma)
