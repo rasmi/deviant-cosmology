@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# effective_pressure.py
-# effective_pressure.py RD0006
+# effective_pressure_smoothed.py
+# effective_pressure_smoothed.py RD0006
 
 import argparse
 parser = argparse.ArgumentParser()
