@@ -30,7 +30,7 @@ for fieldname, fieldvalue in fields.iteritems():
     convolution_data[fieldvalue] = field
 
 bbox = np.array([[-1.0, 1.0], [-1.0, 1.0], [-1.0, 1.0]])
-data_shape = convolution_ds.values()[0].shape
+data_shape = convolution_data.values()[0].shape
 
 convolution_ds = yt.load_uniform_grid(convolution_data, data_shape, length_unit=ds.length_unit, bbox=bbox)
 
