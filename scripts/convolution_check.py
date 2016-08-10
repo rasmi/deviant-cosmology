@@ -14,31 +14,30 @@ import yt
 
 fields = {
     'density': ('gas', 'density'),
-    'pressure': ('gas', 'pressure')
+    'pressure': ('gas', 'pressure'),
+    'velocity_x': ('gas', 'velocity_x'),
+    'velocity_y': ('gas', 'velocity_y'),
+    'velocity_z': ('gas', 'velocity_z')
 }
 
 ds = yt.load(directory+'/'+directory)
 
 convolution_file = h5py.File('convolution_%s.hdf5' % directory, 'r')
 
-density_data = np.array(convolution_file['density'][:])
-pressure_data = np.array(convolution_file['pressure'][:])
+convolution_data = {}
 
-convolution_data = {
-    fields['density']: density_data,
-    fields['pressure']: pressure_data
-}
+for fieldname, fieldvalue in fields.iteritems():
+    field = np.array(convolution_file[fieldname][:])
+    convolution_data[fieldvalue] = field
 
 bbox = np.array([[-1.0, 1.0], [-1.0, 1.0], [-1.0, 1.0]])
+data_shape = convolution_ds.values()[0].shape
 
-convolution_ds = yt.load_uniform_grid(convolution_data, density_data.shape, length_unit=ds.length_unit, bbox=bbox)
+convolution_ds = yt.load_uniform_grid(convolution_data, data_shape, length_unit=ds.length_unit, bbox=bbox)
 
-density_slice = yt.SlicePlot(ds, 'z', fields['density'])
-pressure_slice = yt.SlicePlot(ds, 'z', fields['pressure'])
-density_smoothed_slice = yt.SlicePlot(convolution_ds, 'z', fields['density'])
-pressure_smoothed_slice = yt.SlicePlot(convolution_ds, 'z', fields['pressure'])
+for fieldname, fieldvalue in fields.iteritems():
+    slice_original = yt.SlicePlot(ds, 'z', fieldvalue)
+    slice_smoothed = yt.SlicePlot(convolution_ds, 'z', fieldvalue)
 
-density_slice.save('density_slice_%s.png' % directory)
-pressure_slice.save('pressure_slice_%s.png' % directory)
-density_smoothed_slice.save('density_slice_smoothed_%s.png' % directory)
-pressure_smoothed_slice.save('pressure_slice_smoothed_%s.png' % directory)
+    slice_original.save('%s_slice_%s.png' % (fieldname, directory))
+    slice_smoothed.save('%s_slice_smoothed_%s.png' % (fieldname, directory))
