@@ -8,6 +8,7 @@ parser.add_argument("directory", type=str, help="List one or more directories to
 args = parser.parse_args()
 directory = args.directory
 
+import os
 import numpy as np
 import yt
 import h5py
@@ -60,7 +61,13 @@ pressure_file.create_dataset('p_eff_y', data=p_eff_y)
 pressure_file.create_dataset('p_eff_z', data=p_eff_z)
 pressure_file.close()
 
-subset = np.random.randint(ds.domain_dimensions[0]-1, size=(1000, 3))
+
+if os.path.exists('effective_pressure_subset_%s.hdf5' % directory):
+    subset_file = h5py.File('effective_pressure_subset_%s.hdf5' % directory, 'r')
+    subset_data = subset_file['subset'][:]
+else:
+    subset = np.random.randint(ds.domain_dimensions[0]-1, size=(1000, 3))
+
 subset_indices = tuple(subset.T)
 
 pressure_subset_file = h5py.File('effective_pressure_smoothed_subset_%s.hdf5' % directory, 'w')
