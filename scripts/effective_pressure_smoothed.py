@@ -64,7 +64,7 @@ pressure_file.close()
 
 if os.path.exists('effective_pressure_subset_%s.hdf5' % directory):
     subset_file = h5py.File('effective_pressure_subset_%s.hdf5' % directory, 'r')
-    subset_data = subset_file['subset'][:]
+    subset = subset_file['subset'][:]
 else:
     subset = np.random.randint(ds.domain_dimensions[0]-1, size=(1000, 3))
 
