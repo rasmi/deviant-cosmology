@@ -77,8 +77,8 @@ pressure_smoothed_file = h5py.File('effective_pressure_smoothed_%s.hdf5' % direc
 pressure_smoothed_file.create_dataset('p_eff_x', data=p_eff_x_smoothed)
 pressure_smoothed_file.create_dataset('p_eff_y', data=p_eff_y_smoothed)
 pressure_smoothed_file.create_dataset('p_eff_z', data=p_eff_z_smoothed)
-pressure_smoothed_subset_file.create_dataset('density', data=density_smoothed)
-pressure_smoothed_subset_file.create_dataset('pressure', data=pressure_smoothed)
+pressure_smoothed_file.create_dataset('density', data=density_smoothed)
+pressure_smoothed_file.create_dataset('pressure', data=pressure_smoothed)
 pressure_smoothed_file.close()
 
 pressure_smoothed_subset_file = h5py.File('effective_pressure_smoothed_subset_%s.hdf5' % directory, 'w')
