@@ -1,0 +1,38 @@
+import matplotlib
+matplotlib.use('Agg')
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import h5py
+
+def plot_effective_pressure(pressuretype):
+    filename = 'effective_pressure_subset%s_RD0000.hdf5' % pressuretype
+    effective_pressure_file = h5py.File(filename)
+    p_eff_x = np.array(effective_pressure_file['p_eff_x'][:])
+    p_eff_y = np.array(effective_pressure_file['p_eff_y'][:])
+    p_eff_z = np.array(effective_pressure_file['p_eff_z'][:])
+    density = np.array(effective_pressure_file['density'][:])
+    norm = np.sqrt(np.square(p_eff_x) + np.square(p_eff_y) + np.square(p_eff_z))
+
+    effective_pressure = pd.DataFrame(
+        {'p_eff_x': p_eff_x,
+         'p_eff_y': p_eff_y,
+         'p_eff_z': p_eff_z,
+         'norm': norm,
+         'density': density,
+         'lognorm': np.log10(norm),
+         'logdensity': np.log10(density)
+        }
+    )
+
+    effective_pressure.plot.scatter(x='density', y='p_eff_x', loglog=True, ylim=[10e-25,10e-14], figsize=(20, 15), fontsize=20).get_figure().savefig('p_eff_x%s.png' % pressuretype)
+    effective_pressure.plot.scatter(x='density', y='p_eff_y', loglog=True, ylim=[10e-25,10e-14], figsize=(20, 15), fontsize=20).get_figure().savefig('p_eff_y%s.png' % pressuretype)
+    effective_pressure.plot.scatter(x='density', y='p_eff_z', loglog=True, ylim=[10e-25,10e-14], figsize=(20, 15), fontsize=20).get_figure().savefig('p_eff_z%s.png' % pressuretype)
+    effective_pressure.plot.scatter(x='density', y='norm', loglog=True, ylim=[10e-25,10e-14], figsize=(20, 15), fontsize=20).get_figure().savefig('p_eff_norm%s.png' % pressuretype)
+
+pressuretypes = ['', '_iso50', '_iso100', '_iso200']
+
+for pressuretype in pressuretypes:
+    plot_effective_pressure(pressuretype)
+    plot_effective_pressure('_smoothed'+pressuretype)
