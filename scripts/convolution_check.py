@@ -15,14 +15,11 @@ import yt
 fields = {
     'density': ('gas', 'density'),
     'pressure': ('gas', 'pressure'),
-    'velocity_x': ('gas', 'velocity_x'),
-    'velocity_y': ('gas', 'velocity_y'),
-    'velocity_z': ('gas', 'velocity_z')
 }
 
 ds = yt.load(directory+'/'+directory)
 
-convolution_file = h5py.File('convolution_%s.hdf5' % directory, 'r')
+convolution_file = h5py.File('effective_pressure_smoothed_%s.hdf5' % directory, 'r')
 
 convolution_data = {}
 
