@@ -15,6 +15,7 @@ def plot_effective_pressure(pressuretype):
     density = np.array(effective_pressure_file['density'][:])
     pressure = np.array(effective_pressure_file['pressure'][:])
     norm = np.sqrt(np.square(p_eff_x) + np.square(p_eff_y) + np.square(p_eff_z))
+    soundspeed = np.sqrt((5.0/3.0) * (pressure / density))
 
     effective_pressure = pd.DataFrame(
         {'p_eff_x': p_eff_x,
@@ -22,7 +23,8 @@ def plot_effective_pressure(pressuretype):
          'p_eff_z': p_eff_z,
          'norm': norm,
          'density': density,
-         'pressure': pressure
+         'pressure': pressure,
+         'soundspeed': soundspeed
         }
     )
 
@@ -31,6 +33,8 @@ def plot_effective_pressure(pressuretype):
     effective_pressure.plot.scatter(x='density', y='p_eff_z', loglog=True, ylim=[10e-25,10e-14], figsize=(20, 15), fontsize=20).get_figure().savefig('p_eff_z%s.png' % pressuretype)
     effective_pressure.plot.scatter(x='density', y='norm', loglog=True, ylim=[10e-25,10e-14], figsize=(20, 15), fontsize=20).get_figure().savefig('p_eff_norm%s.png' % pressuretype)
     effective_pressure.plot.scatter(x='pressure', y='density', loglog=True, figsize=(20, 15), fontsize=20).get_figure().savefig('pressure_density%s.png' % pressuretype)
+    plt.clf()
+    effective_pressure['soundspeed'].hist().get_figure().savefig('soundspeed%s.png' % pressuretype)
 
 pressuretypes = ['', '_iso50', '_iso100', '_iso200']
 
