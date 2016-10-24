@@ -16,6 +16,8 @@ def plot_effective_pressure(pressuretype):
     pressure = np.array(effective_pressure_file['pressure'][:])
     norm = np.sqrt(np.square(p_eff_x) + np.square(p_eff_y) + np.square(p_eff_z))
     soundspeed = np.sqrt((5.0/3.0) * (pressure / density))
+    print pressuretype
+    print '%.4g' % np.mean(soundspeed)
 
     effective_pressure = pd.DataFrame(
         {'p_eff_x': p_eff_x,
