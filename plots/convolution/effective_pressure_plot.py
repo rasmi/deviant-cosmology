@@ -15,23 +15,25 @@ def plot_effective_pressure(pressuretype):
     density = np.array(effective_pressure_file['density'][:])
     pressure = np.array(effective_pressure_file['pressure'][:])
     norm = np.sqrt(np.square(p_eff_x) + np.square(p_eff_y) + np.square(p_eff_z))
-    soundspeed = np.sqrt((5.0/3.0) * (pressure / density))
-    #soundspeed_eff = np.sqrt((5.0/3.0) * (norm / density))
+    soundspeed = np.sqrt((pressure / density))
+    #soundspeed_eff = np.sqrt((norm / density))
     slope, intercept = np.polyfit(density, pressure, 1)
     #slope_eff, intercept_eff = np.polyfit(density, norm, 1)
+    slope = np.sqrt(slope)
+    #slope_eff = np.sqrt(slope_eff)
     
     print pressuretype
 
     print '--------- Pressure ---------'
     print 'Mean %.4g' % (np.mean(soundspeed)*1e-5)
-    print 'Slope %.4g' % (1e-13*slope)
+    print 'Slope %.4g' % (1e-5*slope)
     #print 'Intercept %.4g' % (1e-5*intercept)
 
     """
     print '---- Effective Pressure ----'
     print 'Mean %.4g' % (1e-6*np.mean(soundspeed_eff))
     print 'Slope %.4g' % (1e-6*slope_eff)
-    print 'Intercept %.4g' % (1e-6*intercept_eff)
+    #print 'Intercept %.4g' % (1e-6*intercept_eff)
     """
     print '----------------------------'
     
