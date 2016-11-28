@@ -44,8 +44,8 @@ def plot_effective_pressure(pressuretype):
          'norm': norm,
          'density': density,
          'pressure': pressure,
-         'soundspeed': soundspeed,
-         'soundspeed_eff': soundspeed_eff
+         'soundspeed': soundspeed/1e5,
+         'soundspeed_eff': soundspeed_eff/1e5
         }
     )
 
@@ -58,8 +58,8 @@ def plot_effective_pressure(pressuretype):
     effective_pressure.plot.scatter(x='density', y='p_eff_z', loglog=True, ylim=ylim, figsize=figsize, fontsize=fontsize).get_figure().savefig('p_eff_z%s.png' % pressuretype)
     effective_pressure.plot.scatter(x='density', y='norm', loglog=True, ylim=ylim, figsize=figsize, fontsize=fontsize).get_figure().savefig('p_eff_norm%s.png' % pressuretype)
     effective_pressure.plot.scatter(x='density', y='pressure', loglog=True, figsize=figsize, fontsize=fontsize).get_figure().savefig('pressure_density%s.png' % pressuretype)
-    effective_pressure.plot.scatter(x='density', y='soundspeed', loglog=True, ylim=[10e3, 10e7], xlim=[10e-32, 10e-28], figsize=figsize, fontsize=fontsize).get_figure().savefig('soundspeed_density%s.png' % pressuretype)
-    effective_pressure.plot.scatter(x='density', y='soundspeed_eff', loglog=True, ylim=[10e3, 10e7], xlim=[10e-32, 10e-28], figsize=figsize, fontsize=fontsize).get_figure().savefig('soundspeed_eff_density%s.png' % pressuretype)
+    effective_pressure.plot.scatter(x='density', y='soundspeed', logx=True, ylim=[-10, 500], xlim=[1e-31, 1e-27], figsize=figsize, fontsize=fontsize).get_figure().savefig('soundspeed_density%s.png' % pressuretype)
+    effective_pressure.plot.scatter(x='density', y='soundspeed_eff', logx=True, ylim=[-10, 500], xlim=[1e-31, 1e-27], figsize=figsize, fontsize=fontsize).get_figure().savefig('soundspeed_eff_density%s.png' % pressuretype)
     plt.clf()
     effective_pressure['soundspeed'].hist().get_figure().savefig('soundspeed%s.png' % pressuretype)
 
