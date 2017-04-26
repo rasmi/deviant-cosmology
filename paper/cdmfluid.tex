@@ -101,7 +101,8 @@ size is 200 Mpc/h modeled with either $1024^3$ grids or particles;
 we use the MUSIC package \cite{MUSIC} to initialize the box at $z=50$ and evolve
 to $z=0$.  
 
-For the fluid equations, we adopt the ZEUS solver in Enzo,
+For the fluid equations, we adopt the ZEUS solver in Enzo, a staggered
+finite difference method,
 largely because it is fast, robust and easy to modify the equation of state.
 We explore the impact of varying these choices in the appendix, finding
 that over the ranges presented below, the results are insensitive to our
