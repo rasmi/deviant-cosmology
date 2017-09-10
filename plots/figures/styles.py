@@ -22,6 +22,9 @@ lineopacity = {
     'b100': 0.4,
     'b200': 0.6,
     'b400': 0.8,
+    '256': 0.5,
+    '512': 0.75,
+    '1024': 1.0,
     'prediction': 0.6,
     'oneloop': 1.0,
     'adiabatic': 1.0,
@@ -44,5 +47,8 @@ linewidth = {
     'analytic': 0.4,
     'simulated': 2,
     'oneloop': 0.8,
-    'prediction': 0.2
+    'prediction': 0.2,
+    '256': 0.5,
+    '512': 1,
+    '1024': 1.5
 }
