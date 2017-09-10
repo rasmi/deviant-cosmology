@@ -63,7 +63,7 @@ labels.append('Analytic prediciton')
 
 plt.xlim([5.839613682298916419e-02,2.0])
 plt.ylim([-0.2,0.05])
-plt.xlabel('$k \, (h/Mpc)$', fontsize=14)
+plt.xlabel('$k \,\, (h/Mpc)$', fontsize=14)
 plt.ylabel('$\delta P(k)$', fontsize=14)
 plt.legend(handles, labels, numpoints=1, loc='lower left', prop=fm.FontProperties(family='serif', size=10), frameon=False)
 plt.savefig(paper_dir+'z10fig.pdf', format='pdf')
