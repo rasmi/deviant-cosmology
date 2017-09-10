@@ -3,6 +3,7 @@ matplotlib.use('Agg')
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 import seaborn as sns
 import h5py
 
@@ -62,6 +63,12 @@ def plot_effective_pressure(pressuretype):
     effective_pressure.plot.scatter(x='density', y='soundspeed_eff', logx=True, ylim=[-10, 500], xlim=[1e-31, 1e-27], figsize=figsize, fontsize=fontsize).get_figure().savefig('soundspeed_eff_density%s.png' % pressuretype)
     plt.clf()
     effective_pressure['soundspeed'].hist().get_figure().savefig('soundspeed%s.png' % pressuretype)
+    
+    plt.clf()
+    plt.hist2d(np.log10(effective_pressure['density']), effective_pressure['soundspeed'], bins=100, norm=LogNorm())
+    plt.colorbar()
+    plt.savefig('soundspeed_density_hist%s.png' % pressuretype)
+    plt.clf()
 
 pressuretypes = ['', '_iso50', '_iso100', '_iso200']
 
