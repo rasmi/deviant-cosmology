@@ -49,7 +49,7 @@ handles = []
 labels = []
 for speed in soundspeeds:
     handles.append(mlines.Line2D([], [], linestyle=linestyles['isothermal'], color=linecolors[speed], alpha=lineopacity[speed], linewidth=linewidth['simulated']))
-    labels.append('$c_s='+speed+'$')
+    labels.append('$c_s='+speed+' \, km/s$')
 
 handles.append(mlines.Line2D([], [], linestyle=linestyles['adiabatic'], color=linecolors['adiabatic'], alpha=lineopacity['adiabatic'], linewidth=linewidth['simulated']))
 labels.append('Adiabatic fluid')
